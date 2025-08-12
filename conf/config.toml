@@ -1,7 +1,7 @@
 [general]
 # Your domain goes here. If there is a port it should be 'domain.com:port', but
 # otherwise just 'domain.com'.
-domain = "localhost:__PORT__"
+domain = "127.0.0.1:__PORT__"
 port = "__PORT__"
 email = "__EMAIL__"
 site_name = "Gathio" # TODO __SITE_NAME__
@@ -32,13 +32,13 @@ creator_email_addresses = []  # TODO
 [database]
 # Set up for a locally running MongoDB connection. Change this to
 # 'mongodb://mongo:27017/gathio' for a Dockerised connection.
-#mongodb_url = "mongodb://localhost:27017/gathio" # TODO
+mongodb_url = "mongodb://localhost:27017/__APP__" # TODO
 
 [nodemailer]
-smtp_server = ""  # TODO
-smtp_port = ""  # TODO
-smtp_username = ""  # TODO
-smtp_password = ""  # TODO
+smtp_server = "locahost"
+smtp_port = "25"
+smtp_username = "__APP__"
+smtp_password = "__MAIL_PWD__"
 
 # Links to static pages (for example a privacy policy) or an external community page,
 # which will be displayed in the footer.

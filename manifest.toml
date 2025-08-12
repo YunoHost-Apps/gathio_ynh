@@ -5,8 +5,8 @@ packaging_format = 2
 id = "gathio"
 name = "Gathio"
 
-description.en = "A simple, federated, privacy-first event hosting platform."
-description.fr = "Une plateforme d'hébergement d'évènements simple, fédérée et respectueuse de la vie privée."
+description.en = "Federated, privacy-first event hosting platform"
+description.fr = "Plateforme fédérée d'hébergement d'événements axée sur la confidentialité"
 
 version = "1.6.0~ynh1"
 
@@ -21,12 +21,14 @@ userdoc = "https://docs.gath.io/"
 code = "https://github.com/lowercasename/gathio"
 
 [integration]
-yunohost = '>= 11.2.30'
+yunohost = '>= 12.0.9'
 helpers_version = "2.1"
 architectures = "all"
 multi_instance = false
-ldap = "not_relevant"
+
+ldap = false
 sso = false
+
 disk = "50M"
 ram.build = "50M"
 ram.runtime = "50M"
@@ -36,9 +38,9 @@ ram.runtime = "50M"
     [install.domain]
     type = "domain"
 
-    [install.path]
-    type = "path"
-    default = "/gathio"
+    #[install.path]
+    #type = "path"
+    #default = "/gathio"
 
     [install.init_main_permission]
     type = "group"
@@ -54,13 +56,12 @@ ram.runtime = "50M"
 
         autoupdate.strategy = "latest_github_release"
 
+    [resources.system_user]
+    allow_email = true
+
+    [resources.install_dir]
+
     [resources.permissions]
     main.url = "/"
 
     [resources.ports]
-
-    [resources.apt]
-    packages = "mariadb-server"
-    
-    [resources.database]
-    type = "mysql"

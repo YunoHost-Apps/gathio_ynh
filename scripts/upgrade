@@ -5,8 +5,12 @@ source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
-# ENSURE DOWNWARD COMPATIBILITY
+# LOAD SETTINGS
 #=================================================
+ynh_script_progression "Loading installation settings..."
+
+db_name=$(ynh_app_setting_get --key=db_name)
+mongo_version=$(ynh_app_setting_get --key=mongo_version)
 
 #=================================================
 # STOP SYSTEMD SERVICE
@@ -16,11 +20,23 @@ ynh_script_progression "Stopping a systemd service..."
 ynh_systemctl --service="$app" --action="stop"
 
 #=================================================
+# ENSURE DOWNWARD COMPATIBILITY
+#=================================================
+ynh_script_progression "Ensuring downward compatibility..."
+
+# If mongo_version doesn't exist, create it
+if [ -z "$mongo_version" ]; then
+	mongo_version="$(mongod --version | grep -oP 'db version v\K.{0,3}')"
+	ynh_app_setting_set --key=mongo_version --value=$mongo_version
+fi
+
+#=================================================
 # INSTALL DEPENDENCIES
 #=================================================
 ynh_script_progression "Installing dependencies..."
 
 ynh_nodejs_install
+ynh_hide_warnings ynh_install_mongo
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -28,8 +44,6 @@ ynh_nodejs_install
 ynh_script_progression --message="Upgrading source files..."
 
 ynh_setup_source --dest_dir="$install_dir" --full_replace --keep="config/config.toml"
-
-chown -R $app:www-data "$install_dir"
 
 #=================================================
 # REAPPLY SYSTEM CONFIGURATIONS
@@ -40,7 +54,7 @@ ynh_config_add_nginx
 
 ynh_config_add_systemd
 
-yunohost service add "$app" --description="A short description of the app" --log="/var/log/$app/$app.log"
+yunohost service add "$app" --description="Privacy-first event hosting platform" --log="/var/log/$app/$app.log"
 
 #=================================================
 # START SYSTEMD SERVICE

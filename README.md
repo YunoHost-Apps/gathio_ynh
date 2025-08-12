@@ -8,7 +8,7 @@ It shall NOT be edited by hand.
   Gathio, packaged for YunoHost
 </h1>
 
-A simple, federated, privacy-first event hosting platform.
+Federated, privacy-first event hosting platform
 
 [![🌐 Official app website](https://img.shields.io/badge/Official_app_website-darkgreen?style=for-the-badge)](https://gath.io/)
 [![App Demo](https://img.shields.io/badge/App_Demo-blue?style=for-the-badge)](https://gath.io/)

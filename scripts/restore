@@ -10,6 +10,23 @@ source /usr/share/yunohost/helpers
 ynh_script_progression "Reinstalling dependencies..."
 
 ynh_nodejs_install
+ynh_hide_warnings ynh_install_mongo
+
+#=================================================
+# RESTORE THE APP MAIN DIR
+#=================================================
+ynh_script_progression "Restoring the app main directory..."
+
+ynh_restore "$install_dir"
+
+#=================================================
+# RESTORE THE MONGODB DATABASE
+#=================================================
+ynh_script_progression "Restoring the MongoDB database..."
+
+db_pwd=$(ynh_app_setting_get --key=db_pwd)
+ynh_mongo_setup_db --db_user=$db_user --db_name=$db_name --db_pwd=$db_pwd
+ynh_mongo_restore_db --database=$app < ./dump.bson
 
 #=================================================
 # RESTORE SYSTEM CONFIGURATIONS
@@ -21,7 +38,7 @@ ynh_restore "/etc/nginx/conf.d/$domain.d/$app.conf"
 ynh_restore "/etc/systemd/system/$app.service"
 systemctl enable "$app.service" --quiet
 
-yunohost service add "$app" --description="A short description of the app" --log="/var/log/$app/$app.log"
+yunohost service add "$app" --description="Privacy-first event hosting platform" --log="/var/log/$app/$app.log"
 
 #=================================================
 # RESTORE VARIOUS FILES
