@@ -32,13 +32,13 @@ creator_email_addresses = []  # TODO
 [database]
 # Set up for a locally running MongoDB connection. Change this to
 # 'mongodb://mongo:27017/gathio' for a Dockerised connection.
-mongodb_url = "mongodb://localhost:27017/gathio" # TODO
+mongodb_url = "mongodb://localhost:27017/__APP__" # TODO
 
 [nodemailer]
-smtp_server = "locahost"  # TODO
-smtp_port = "25"  # TODO
-smtp_username = "__APP__"  # TODO
-smtp_password = ""  # TODO
+smtp_server = "locahost"
+smtp_port = "25"
+smtp_username = "__APP__"
+smtp_password = "__MAIL_PWD__"
 
 # Links to static pages (for example a privacy policy) or an external community page,
 # which will be displayed in the footer.
