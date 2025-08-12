@@ -4,7 +4,6 @@ packaging_format = 2
 
 id = "gathio"
 name = "Gathio"
-
 description.en = "Federated, privacy-first event hosting platform"
 description.fr = "Plateforme fédérée d'hébergement d'événements axée sur la confidentialité"
 
