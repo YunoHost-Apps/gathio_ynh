@@ -9,6 +9,17 @@ source /usr/share/yunohost/helpers
 ynh_script_progression "Installing dependencies..."
 
 ynh_nodejs_install
+ynh_hide_warnings ynh_install_mongo
+
+#=================================================
+# CREATE A MONGODB DATABASE
+#=================================================
+ynh_script_progression "Creating a MongoDB database..."
+
+db_name=$(ynh_sanitize_dbid --db_name=$app)
+db_user=$db_name
+ynh_app_setting_set --key=db_name --value=$db_name
+ynh_mongo_setup_db --db_user=$db_user --db_name=$db_name
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -17,21 +28,14 @@ ynh_script_progression "Setting up source files..."
 
 ynh_setup_source --dest_dir="$install_dir"
 
-chown -R $app:www-data "$install_dir"
-
 #=================================================
 # ADD A CONFIGURATION
 #=================================================
 ynh_script_progression "Adding app's configuration file..."
 
 mkdir "$install_dir/config"
-chmod 400 "$install_dir/config/"
-chown "$app:$app" "$install_dir/config/"
 
 ynh_config_add --template="conf/config.toml" --destination="$install_dir/config/config.toml"
-
-chmod 400 "$install_dir/config/config.toml"
-chown "$app:$app" "$install_dir/config/config.toml"
 
 #=================================================
 # SYSTEM CONFIGURATION
@@ -51,15 +55,10 @@ ynh_script_progression "Installing $app..."
 
 pushd $install_dir
   corepack enable
-corepack prepare pnpm@latest --activate
-ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH pnpm install
-ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH pnpm build
+  corepack prepare pnpm@latest --activate
+  ynh_exec_warn_less ynh_exec_as_app env pnpm install
+  ynh_exec_warn_less ynh_exec_as_app env pnpm build
 popd
-
-#=================================================
-# FINALIZE APP INSTALL WITH CURL
-#=================================================
-ynh_script_progression "Finalizing installation..."
 
 #=================================================
 # START SYSTEMD SERVICE

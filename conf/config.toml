@@ -1,7 +1,7 @@
 [general]
 # Your domain goes here. If there is a port it should be 'domain.com:port', but
 # otherwise just 'domain.com'.
-domain = "localhost:__PORT__"
+domain = "127.0.0.1:__PORT__"
 port = "__PORT__"
 email = "__EMAIL__"
 site_name = "Gathio" # TODO __SITE_NAME__

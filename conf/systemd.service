@@ -1,17 +1,15 @@
 [Unit]
-Description=Service for Gathio (__APP__)
+Description=Gathio: Federated, privacy-first event hosting platform
 After=network.target
 
 [Service]
 Type=simple
 User=__APP__
 Group=__APP__
-
 Environment="PATH=__PATH_WITH_NODEJS__"
 Environment="NODE_ENV=production"
-
 WorkingDirectory=__INSTALL_DIR__/
-ExecStart=pnpm start
+ExecStart=__NODEJS_DIR__/node dist/start.js
 StandardOutput=append:/var/log/__APP__/__APP__.log
 StandardError=inherit
 Restart=on-failure
