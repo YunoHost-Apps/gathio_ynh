@@ -41,7 +41,7 @@ ynh_script_progression "Adding app's configuration file..."
 
 mkdir "$install_dir/config"
 
-ynh_config_add --template="conf/config.toml" --destination="$install_dir/config/config.toml"
+ynh_config_add --template="config.toml" --destination="$install_dir/config/config.toml"
 
 #=================================================
 # SYSTEM CONFIGURATION
@@ -76,5 +76,3 @@ ynh_systemctl --service="$app" --action="start"
 #=================================================
 
 ynh_script_progression "Installation of $app completed"
-
-
