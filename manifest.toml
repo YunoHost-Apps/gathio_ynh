@@ -1,0 +1,62 @@
+#:schema https://raw.githubusercontent.com/YunoHost/apps/main/schemas/manifest.v2.schema.json
+
+packaging_format = 2
+
+id = "gathio"
+name = "Gathio"
+
+description.en = "A simple, federated, privacy-first event hosting platform."
+description.fr = "Une plateforme d'hébergement d'évènements simple, fédérée et respectueuse de la vie privée."
+
+version = "1.6.0~ynh1"
+
+maintainers = ["Lapineige"]
+
+[upstream]
+license = "GPL-3.0-only"
+website = "https://gath.io/"
+demo = "https://gath.io/"
+admindoc = "https://docs.gath.io/"
+userdoc = "https://docs.gath.io/"
+code = "https://github.com/lowercasename/gathio"
+
+[integration]
+yunohost = '>= 11.2.30'
+helpers_version = "2.1"
+architectures = "all"
+multi_instance = false
+ldap = "not_relevant"
+sso = "false"
+disk = "50M"
+ram.build = "50M"
+ram.runtime = "50M"
+
+[install]
+
+    [install.domain]
+    type = "domain"
+
+    [install.path]
+    type = "path"
+    default = "/gathio"
+
+    [install.init_main_permission]
+    type = "group"
+    default = "visitors"
+
+[resources]
+
+    [resources.sources]
+
+        [resources.sources.main]
+        url = "https://github.com/lowercasename/gathio/archive/refs/tags/v1.6.0.tar.gz"
+        sha256 = "0c8dd3c8afd2a6005538cc8d0bc07a1ed92d4e486142643ee2dc0793bc02d202"
+
+        autoupdate.strategy = "latest_github_release"
+
+    [resources.permissions]
+    main.url = "/"
+
+    [resources.ports]
+    [resources.database]
+    type = "mysql"
