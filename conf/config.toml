@@ -3,12 +3,12 @@
 # otherwise just 'domain.com'.
 domain = "localhost:__PORT__"
 port = "__PORT__"
-email = "__EMAIL__"
-site_name = "Gathio" # TODO __SITE_NAME__
+email = "_EMAIL_" # TODO do it, with double _
+site_name = "Gathio" # TODO _SITE_NAME_ (double _)
 is_federated = true
 # Events will be deleted this many days after they have ended. Set to 0 to
 # disable automatic deletion (old events will never be deleted).
-delete_after_days = 0 # TODO __DELETE_AFTER_DAYS__
+delete_after_days = __DELETE_AFTER_DAYS__
 # If left blank, this defaults to
 # https://yourdomain.com/images/gathio-email-logo.gif. Set a full URL here to
 # change it to your own logo (or just change the file itself).
