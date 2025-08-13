@@ -44,6 +44,13 @@ ram.runtime = "50M"
     type = "group"
     default = "visitors"
 
+    [install.delete_after_days]
+    ask.en = "How long should the event stay online after their end, in days ? (0 = never deleted)"
+    ask.fr = "Combien de temps les évènements doivent rester en ligne après leur fin, en jours ? (0 = jamais supprimés)"
+    type = "select"
+    choices = ["0", "3", "7", "15", "30", "90"]
+    default = "7"
+
 [resources]
 
     [resources.sources]
