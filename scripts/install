@@ -1,5 +1,4 @@
 #!/bin/bash
-### App file generated with YoloGen, the Yunohost app generator, version .
 
 source _common.sh
 source /usr/share/yunohost/helpers
@@ -25,7 +24,7 @@ chown -R $app:www-data "$install_dir"
 #=================================================
 ynh_script_progression "Adding app's configuration file..."
 
-ynh_config_add --template="conf/config.toml" --destination="$install_dir/config/config.toml"
+ynh_config_add --template="config.toml" --destination="$install_dir/config/config.toml"
 
 chmod 400 "$install_dir/config/config.toml"
 chown "$app:$app" "$install_dir/config/config.toml"
@@ -47,7 +46,7 @@ yunohost service add "$app" --description="A short description of the app" --log
 ynh_script_progression "Installing $app..."
 
 pushd $install_dir
-  corepack enable
+corepack enable
 corepack prepare pnpm@latest --activate
 ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH pnpm install
 ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH pnpm build

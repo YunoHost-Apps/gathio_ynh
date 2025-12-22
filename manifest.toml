@@ -26,7 +26,7 @@ helpers_version = "2.1"
 architectures = "all"
 multi_instance = false
 ldap = "not_relevant"
-sso = "false"
+sso = false
 disk = "50M"
 ram.build = "50M"
 ram.runtime = "50M"
@@ -44,6 +44,13 @@ ram.runtime = "50M"
     type = "group"
     default = "visitors"
 
+    [install.delete_after_days]
+    ask.en = "How long should the event stay online after their end, in days ? (0 = never deleted)"
+    ask.fr = "Combien de temps les évènements doivent rester en ligne après leur fin, en jours ? (0 = jamais supprimés)"
+    type = "select"
+    choices = ["0", "3", "7", "15", "30", "90"]
+    default = "7"
+
 [resources]
 
     [resources.sources]
@@ -54,9 +61,19 @@ ram.runtime = "50M"
 
         autoupdate.strategy = "latest_github_release"
 
+    [resources.system_user]
+
+    [resources.install_dir]
+
+    [resources.data_dir]
+
     [resources.permissions]
     main.url = "/"
 
     [resources.ports]
+
+    [resources.apt]
+    packages = "mariadb-server"
+    
     [resources.database]
     type = "mysql"
